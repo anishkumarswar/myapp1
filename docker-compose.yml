@@ -1,0 +1,19 @@
+version: '3.8'  # stable
+
+services:
+  app:
+    build:
+      context: .  # Set the build context to the current directory (where the Dockerfile exists)
+      dockerfile: Dockerfile  
+    container_name: myapp1_container 
+    ports:
+      - "80:80"   # Expose port 80 for Nginx
+      - "3000:3000"  # Expose port 3000 for Node.js 
+    volumes:
+        - ./logs:/var/log/nginx  # Log volumes for Nginx
+      # - ./logs:/var/log/myapp1_logs  # Logs for Node.js 
+
+    environment:
+      NODE_ENV: production  # Set Node.js environment 
+
+    restart: unless-stopped  # Automatically restart the container unless manually stopped
